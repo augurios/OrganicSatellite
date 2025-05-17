@@ -1,6 +1,6 @@
 # Organic Satellite Site
 
-This template should help get you started developing with Vue 3 in Vite.
+The website for Organic Satellite Records developed with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
