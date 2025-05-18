@@ -62,7 +62,7 @@ export default {
         },
         createStars() {
             this.stars = [];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 250; i++) {
                 this.stars.push({
                     x: Math.random() * window.innerWidth,
                     y: Math.random() * window.innerHeight,
@@ -112,6 +112,7 @@ export default {
 
 <style lang="scss">
     .satellite-header {
+        margin-bottom: 12px;
         &__logo {
             margin: 0 auto;
             display: block;
