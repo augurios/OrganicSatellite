@@ -1,0 +1,67 @@
+{
+    "releases": [
+        {
+            "title": "Reality Break",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/a3e98296-68cd-4930-b88f-f25d03004081/cover?width=320&height=320",
+            "status": "Released",
+            "date": "May 1, 2025",
+            "tracks": 3,
+            "trackLabel": "3 Tracks",
+            "artist": "Neural Pulsar"
+        },
+        {
+            "title": "Signs of Life",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/cd0a453e-29e3-4e97-bfe4-a2b201d2a71c/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 12, 2025",
+            "tracks": 1,
+            "trackLabel": "1 Track",
+            "artist": "Cryo Drift, Gravitas Fracture"
+        },
+        {
+            "title": "Astronautilus",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/b9b30eea-f381-469c-9f05-cb3af708414e/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 12, 2025",
+            "tracks": 2,
+            "trackLabel": "2 Tracks",
+            "artist": "Cryo Drift"
+        },
+        {
+            "title": "Sprout Of Light",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/55ab4559-bab7-4791-80c6-2277b9406e34/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 12, 2025",
+            "tracks": 2,
+            "trackLabel": "2 Tracks",
+            "artist": "Gravitas Fracture"
+        },
+        {
+            "title": "Orbitscraper",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/18f1fb09-d541-4153-8348-129ef633d871/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 12, 2025",
+            "tracks": 2,
+            "trackLabel": "2 Tracks",
+            "artist": "Neural Pulsar"
+        },
+        {
+            "title": "Harmonic Resonance",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/79f27364-fb71-4340-865c-c91b38c4b208/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 12, 2025",
+            "tracks": 4,
+            "trackLabel": "4 Tracks",
+            "artist": "Reverb Tail"
+        },
+        {
+            "title": "Sinusoidal",
+            "cover": "https://api3.landr.com/distribution/api/v2/products/17171b90-60f1-4d48-943e-c94cd5f45d61/cover?width=320&height=320",
+            "status": "Released",
+            "date": "Mar 11, 2025",
+            "tracks": 3,
+            "trackLabel": "3 Tracks",
+            "artist": "Ecliptic Cycles"
+        }
+    ]
+}
