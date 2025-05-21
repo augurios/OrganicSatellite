@@ -104,10 +104,10 @@ import { RouterLink, RouterView } from 'vue-router'
     }
 
     @keyframes glowingBackground {
-        0% { background: rgba(63, 206, 208, 0.1); box-shadow: 0px 0px 0px var(--turkish); }
-        20% { background: rgba(63, 206, 208, 0.2); box-shadow: 0px 0px 5px var(--turkish); }
-        50% { background: rgba(63, 206, 208, 0.5); box-shadow: 0px 0px 15px var(--turkish); }
-        60% { background: rgba(63, 206, 208, 0.2); box-shadow: 0px 0px 5px var(--turkish); }
-        100% { background: rgba(63, 206, 208, 0.1); box-shadow: 0px 0px 0px var(--turkish); }
+        0% { background: rgba(63, 206, 208, 0.2); box-shadow: 0px 0px 0px var(--turkish); }
+        20% { background: rgba(63, 206, 208, 0.3); box-shadow: 0px 0px 5px var(--turkish); }
+        50% { background: rgba(63, 206, 208, 0.5); box-shadow: 0px 0px 8px var(--turkish); }
+        60% { background: rgba(63, 206, 208, 0.3); box-shadow: 0px 0px 5px var(--turkish); }
+        100% { background: rgba(63, 206, 208, 0.2); box-shadow: 0px 0px 0px var(--turkish); }
     }
 </style>
