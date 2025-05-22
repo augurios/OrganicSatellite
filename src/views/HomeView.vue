@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import LatestReleases from '../components/LatestReleases.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <LatestReleases />
   </main>
 </template>

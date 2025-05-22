@@ -57,15 +57,15 @@ export default {
         },
         resizeCanvas() {
             const canvas = this.$refs.starCanvas;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth * 2;
+            canvas.height = window.innerHeight * 2;
         },
         createStars() {
             this.stars = [];
-            for (let i = 0; i < 250; i++) {
+            for (let i = 0; i < 700; i++) {
                 this.stars.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
+                    x: Math.random() * (window.innerWidth * 2),
+                    y: Math.random() * (window.innerHeight * 2),
                     r: Math.random() * 1.5 + 0.5,
                     opacity: Math.random() * 0.8 + 0.2,
                     twinkle: Math.random() * Math.PI * 2,
@@ -74,8 +74,8 @@ export default {
         },
         animate() {
             const ctx = this.ctx;
-            const w = window.innerWidth;
-            const h = window.innerHeight;
+            const w = window.innerWidth * 2;
+            const h = window.innerHeight * 2;
             ctx.clearRect(0, 0, w, h);
 
             // Save context state
@@ -163,9 +163,11 @@ export default {
     }
 
     .star-canvas {
-        position: absolute;
-        left: 0; top: 0;
-        width: 100vw; height: 100vh;
+        position: fixed;
+        left: -50%; 
+        top: -50%;
+        width: 200vw; 
+        height: 200vh;
         pointer-events: none;
         z-index: 0;
     }
