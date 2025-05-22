@@ -52,7 +52,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     .satellite-navbar {
         text-align: center;
-        margin: 32px -32px;
+        margin: 32px 0;
 
         &-link {
             display: inline-block;
@@ -71,6 +71,7 @@ import { RouterLink, RouterView } from 'vue-router'
             &:first-child {
                 margin-left: 0;
             }
+            
             &:last-child {
                 margin-right: 0;
             }

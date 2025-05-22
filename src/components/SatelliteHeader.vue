@@ -169,7 +169,7 @@ export default {
         width: 200vw; 
         height: 200vh;
         pointer-events: none;
-        z-index: 0;
+        z-index: -1;
     }
 
     @keyframes meteoroStyle1 {
