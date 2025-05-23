@@ -3,12 +3,13 @@ import ReleasesData from '../assets/releases.json';
 import { ref } from 'vue';
 
 const releases = ref(ReleasesData.releases);
+const Window = ref(window);
 </script>
 
 <template>
     <section class="satellite-release-grid">
-		<div class="satellite-release-grid__item"  v-for="release in releases" :key="'item-'+release.cover">
-	    	<figure class="satellite-release-grid__item--cover">
+		<div class="satellite-release-grid__item" v-for="release in releases" :key="'item-'+release.cover" :class="{'video': release.type === 'VIDEO'}">
+	    	<figure class="satellite-release-grid__item--cover" @click="release.type === 'VIDEO' ? Window.open(release.youtube, '_blank') : null">
                 <img :src="release.cover" :alt="release.title"/>
             </figure>
             <div class="satellite-release-grid__item--info">
@@ -20,10 +21,11 @@ const releases = ref(ReleasesData.releases);
                 <div class="satellite-release-grid__item--info--links">
                     <span>Listen:</span>
                     <a :href="release.soundcloud" target="_blank" v-if="release.soundcloud"><i class="fab fa-soundcloud"></i></a>
-                    <a :href="release.youtube" target="_blank" v-if="release.youtube"><i class="fab fa-youtube"></i></a>
                     <a :href="release.spotify" target="_blank" v-if="release.spotify"><i class="fab fa-spotify"></i></a>
+                    <a :href="release.youtube" target="_blank" v-if="release.youtube"><i class="fab fa-youtube"></i></a>
                 </div>
 
+                <i class="pinned fa-solid fa-thumbtack" v-if="release.pinned"></i>
             </div>
 		</div>
 	</section>
@@ -52,7 +54,8 @@ const releases = ref(ReleasesData.releases);
         }
 
         &--info {
-
+            padding-top: 6px;
+                
             h2 {
                 font-size: 18px;
                 font-weight: bold;
@@ -74,6 +77,7 @@ const releases = ref(ReleasesData.releases);
                 letter-spacing: 2px;
                 font-weight: bold;
                 color: var(--turkish);
+                z-index: 2;
             }
 
             &--links {
@@ -100,8 +104,46 @@ const releases = ref(ReleasesData.releases);
                 }
             }
 
-            &--icon {
+            .pinned {
+                position: absolute;
+                top: 8px;
+                right: 6px;
+                font-size: 12px;
+                color: var(--turkish);
+                opacity: 0.7;
+                transform: rotate(32deg)
+            }
+        }
+        
+        &.video {
+            .satellite-release-grid__item--cover {
+                position: relative;
+                &:before {
+                    content: "";
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: #000;
+                    opacity: 0.3;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1;
+                }
 
+                &:after {
+                    content: "";
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border: 12px solid transparent;
+                    border-left: 20px solid var(--turkish);
+                    position: absolute;
+                    top: 30px;
+                    z-index: 7;
+                    left: 34px;
+                    opacity: 0.4;
+                }
             }
         }
     }

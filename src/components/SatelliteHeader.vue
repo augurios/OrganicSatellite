@@ -20,7 +20,8 @@ export default {
             stars: [],
             widthWindow: window.innerWidth,
             heightWindow: window.innerHeight,
-            rotation: 0
+            rotation: 0,
+            scale: 4
         };
     },
     mounted() {
@@ -57,15 +58,15 @@ export default {
         },
         resizeCanvas() {
             const canvas = this.$refs.starCanvas;
-            canvas.width = window.innerWidth * 2;
-            canvas.height = window.innerHeight * 2;
+            canvas.width = window.innerWidth * this.scale;
+            canvas.height = window.innerHeight * this.scale;
         },
         createStars() {
             this.stars = [];
             for (let i = 0; i < 700; i++) {
                 this.stars.push({
-                    x: Math.random() * (window.innerWidth * 2),
-                    y: Math.random() * (window.innerHeight * 2),
+                    x: Math.random() * (window.innerWidth * this.scale),
+                    y: Math.random() * (window.innerHeight * this.scale),
                     r: Math.random() * 1.5 + 0.5,
                     opacity: Math.random() * 0.8 + 0.2,
                     twinkle: Math.random() * Math.PI * 2,
@@ -74,8 +75,8 @@ export default {
         },
         animate() {
             const ctx = this.ctx;
-            const w = window.innerWidth * 2;
-            const h = window.innerHeight * 2;
+            const w = window.innerWidth * this.scale;
+            const h = window.innerHeight * this.scale;
             ctx.clearRect(0, 0, w, h);
 
             // Save context state
@@ -114,7 +115,7 @@ export default {
     .satellite-header {
         margin-bottom: 12px;
         &__logo {
-            margin: 0 auto;
+            margin: 0 auto -14px;
             display: block;
             width: 125px;
             height: 125px;

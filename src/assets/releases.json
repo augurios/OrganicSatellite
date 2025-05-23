@@ -1,6 +1,17 @@
 {
     "releases": [
         {
+            "title": "Cosmic Future Garage ",
+            "cover": "/img/mix2.jpg",
+            "type": "VIDEO",
+            "date": "Mar 29, 2025",
+            "artist": "Mix Vol 2",
+            "soundcloud": "",
+            "spotify": "",
+            "youtube": "https://www.youtube.com/watch?v=A70F6Z2FZ9k",
+            "pinned": true
+        },
+        {
             "title": "Reality Break",
             "cover": "https://api3.landr.com/distribution/api/v2/products/a3e98296-68cd-4930-b88f-f25d03004081/cover?width=320&height=320",
             "type": "EP",
@@ -9,6 +20,16 @@
             "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/reality-break",
             "spotify": "https://open.spotify.com/album/4t7XZcohcshu21mtMCAf1g?si=G0b1LBjoQkC3fi8nIW16CQ",
             "youtube": ""
+        },
+        {
+            "title": "Tuning For Laniakea",
+            "cover": "/img/tfl-cover.jpg",
+            "type": "VIDEO",
+            "date": "Mar 29, 2025",
+            "artist": "Ecliptic Cycles",
+            "soundcloud": "",
+            "spotify": "",
+            "youtube": "https://www.youtube.com/watch?v=1B8nmKCUKkM"
         },
         {
             "title": "Signs of Life",
@@ -28,7 +49,7 @@
             "artist": "Cryo Drift",
             "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/astronautilus",
             "spotify": "https://open.spotify.com/album/2QEXE1lbWfmGTypjtXe5eN?si=2ryHL8P1Tne-Yv7QemUtrw",
-            "youtube": ""
+            "youtube": "https://www.youtube.com/watch?v=KREaP-bqqLs"
         },
         {
             "title": "Sprout Of Light",
@@ -68,7 +89,7 @@
             "artist": "Ecliptic Cycles",
             "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/sinusoidal",
             "spotify": "https://open.spotify.com/album/37Yx5w1WqBqFKC2BwHQlZA?si=4O686UPWT76efY-o3XNPBg",
-            "youtube": ""
+            "youtube": "https://www.youtube.com/watch?v=deCTnv4Gx9U"
         }
     ]
 }
