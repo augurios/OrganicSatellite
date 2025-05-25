@@ -1,28 +1,133 @@
 <script setup>
-import ReleasesData from '../assets/releases.json';
-import { ref } from 'vue';
+import { ref, defineProps, nextTick, onMounted } from 'vue';
 
-const releases = ref(ReleasesData.releases);
+const props = defineProps({
+  GridData: {
+    type: Array,
+    required: false,
+    default: null
+  }
+});
+
+const gridData = ref(props.GridData);
+
+// Refs for DOM elements
+const gridWrap = ref(null);
+const grid = ref(null);
+const contentEl = ref(null);
+const loader = ref(null);
+const contentItems = ref([]);
+const gridItems = ref([]);
+const placeholder = ref(null);
+const isAnimating = ref(false);
+const support = ref(true); // fallback for feature detection
+
+// Helper: class manipulation (simple version of classie)
+function addClass(el, className) {
+  if (el && !el.classList.contains(className)) el.classList.add(className);
+}
+function removeClass(el, className) {
+  if (el && el.classList.contains(className)) el.classList.remove(className);
+}
+
+// Placeholder creation
+function createPlaceholder(itemContent) {
+  const div = document.createElement('div');
+  div.className = 'placeholder';
+  div.innerHTML = itemContent;
+  return div;
+}
+
+// Resize placeholder to fit grid
+function resizePlaceholder() {
+  if (!placeholder.value || !grid.value) return;
+  placeholder.value.style.width = grid.value.offsetWidth + 'px';
+  placeholder.value.style.height = grid.value.offsetHeight + 'px';
+  placeholder.value.style.left = 0;
+  placeholder.value.style.top = 0;
+}
+
+// Animation end event name
+const transEndEventName = 'transitionend';
+
+// Main function (adapted)
+function onFigureClick(pos) {
+  if (isAnimating.value) return false;
+  isAnimating.value = true;
+  const self = {
+    loader: loader.value,
+    contentEl: contentEl.value,
+    contentItems: contentItems.value,
+    gridItems: gridItems.value,
+    grid: grid.value,
+    gridWrap: gridWrap.value,
+    isAnimating: isAnimating.value,
+    placeholder: placeholder.value,
+    support: support.value,
+    _createPlaceholder: createPlaceholder,
+    _resizePlaceholder: resizePlaceholder
+  };
+  function loadContent() {
+    setTimeout(() => {
+      removeClass(self.loader, 'show');
+      addClass(self.contentItems[pos], 'show');
+      isAnimating.value = false;
+    }, 1000);
+    addClass(self.contentEl, 'show');
+    addClass(self.loader, 'show');
+    addClass(document.body, 'noscroll');
+  }
+  if (!self.support) {
+    loadContent();
+    return false;
+  }
+  const currentItem = self.gridItems[pos];
+  const itemContent = currentItem.innerHTML;
+  self.placeholder = createPlaceholder(itemContent);
+  placeholder.value = self.placeholder;
+  self.placeholder.style.left = currentItem.offsetLeft + 'px';
+  self.placeholder.style.top = currentItem.offsetTop + 'px';
+  self.grid.appendChild(self.placeholder);
+  function animFn() {
+    addClass(currentItem, 'active');
+    addClass(self.gridWrap, 'view-full');
+    resizePlaceholder();
+    function onEndTransitionFn(ev) {
+      if (ev.propertyName.indexOf('transform') === -1) return false;
+      self.placeholder.removeEventListener(transEndEventName, onEndTransitionFn);
+      loadContent();
+    }
+    self.placeholder.addEventListener(transEndEventName, onEndTransitionFn);
+  }
+  setTimeout(animFn, 25);
+}
+
+// Collect grid and content items after mount
+onMounted(() => {
+  nextTick(() => {
+    gridItems.value = Array.from(grid.value.querySelectorAll('figure'));
+    contentItems.value = Array.from(contentEl.value.querySelectorAll('div'));
+  });
+});
 </script>
 
 <template>
     <section class="satellite-grid vertical" id="grid3d">
-				<div class="satellite-grid-wrap">
-					<div class="satellite-grid-gallery">
-						<figure v-for="release in releases" :key="'img-'+release.cover"><img :src="release.cover" :alt="release.title"/></figure>
-					</div>
-				</div><!-- /grid-wrap -->
-				<div class="satellite-grid-content">
-					<div v-for="release in releases" :key="'cont-'+release.cover">
-						<img :src="release.cover" :alt="release.title"/>
-						<h2>{{ release.title }}</h2>
-                        <h3>By {{ release.artist }}</h3>
-						<p class="dummy-text"> {{ release.date }}</p>
-					</div>
-					<span class="satellite-grid-loading"></span>
-					<span class="icon satellite-grid-close-content"></span>
-				</div>
-			</section>
+        <div class="satellite-grid-wrap" ref="gridWrap">
+          <div class="satellite-grid-gallery" ref="grid">
+            <figure v-for="(gridItem, idx) in gridData" :key="'img-'+gridItem.image" @click="onFigureClick(idx)"><img :src="gridItem.image" :alt="gridItem.name"/></figure>
+          </div>
+        </div><!-- /grid-wrap -->
+        <div class="satellite-grid-content" ref="contentEl">
+          <div v-for="(gridItemContet, idx) in gridData" :key="'cont-'+gridItemContet.image">
+            <img :src="gridItemContet.image" :alt="gridItemContet.name"/>
+            <h2>{{ gridItemContet.name }}</h2>
+            <p class="dummy-text"> {{ gridItemContet.description }}</p>
+          </div>
+          <span class="satellite-grid-loading" ref="loader"></span>
+          <span class="icon satellite-grid-close-content"></span>
+        </div>
+      </section>
 </template>
 
 <style lang="scss">
@@ -46,11 +151,13 @@ const releases = ref(ReleasesData.releases);
     .placeholder {
         width: 340px;
         height: 300px;
-        margin-bottom: 24px;
+        margin-bottom: 0;
+        background: #1f1e1e82;
+        border-top: 1px solid #222121;
+        border-bottom: 1px solid #151515;
     }
 
     figure {
-        display: inline-block;
         cursor: pointer;
         user-select: none;
         -webkit-touch-callout: none;
@@ -66,7 +173,8 @@ const releases = ref(ReleasesData.releases);
         img {
             display: block;
             width: 100%;
-            
+            height: 92px;
+            object-fit: cover;
         }
     }
 

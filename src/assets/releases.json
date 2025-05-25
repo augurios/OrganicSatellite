@@ -12,6 +12,16 @@
             "pinned": true
         },
         {
+            "title": "Rule Of Corp",
+            "cover": "/img/roc-cover.jpg",
+            "type": "VIDEO",
+            "date": "May 23, 2025",
+            "artist": "Neural Pulsar",
+            "soundcloud": "",
+            "spotify": "",
+            "youtube": "https://www.youtube.com/watch?v=OsWHTd1rW14"
+        },
+        {
             "title": "Reality Break",
             "cover": "https://api3.landr.com/distribution/api/v2/products/a3e98296-68cd-4930-b88f-f25d03004081/cover?width=320&height=320",
             "type": "EP",

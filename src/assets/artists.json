@@ -1,0 +1,29 @@
+{
+    "artists": [
+        {
+            "name": "Cryo Drift",
+            "image": "/img/logoCD.svg",
+            "description": "This is Cryo Drift."
+        },
+        {
+            "name": "Ecliptic Cycles",
+            "image": "/img/LogoEC.svg",
+            "description": "This is Ecliptic Cycles."
+        },
+        {
+            "name": "Gravitas Fracture",
+            "image": "/img/logoGF.svg",
+            "description": "This is Gravitas Fracture."
+        },
+        {
+            "name": "Neural Pulsar",
+            "image": "/img/logoNP.svg",
+            "description": "This is Neural Pulsar."
+        },
+        {
+            "name": "Reverb Tail",
+            "image": "/img/logoRT.svg",
+            "description": "This is Reverb Tail."
+        }
+    ]
+}
