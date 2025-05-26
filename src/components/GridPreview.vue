@@ -59,7 +59,6 @@ function loadContent() {
 }
 
 function hideContent() {
-
 		showContent.value = false;
         gridData.value[selectedItem.value.index].show = false;
 		gridActive.value = false;
@@ -255,9 +254,9 @@ body {
         width: 340px;
         height: 300px;
         margin-bottom: 0;
-        background: #1f1e1e82;
-        border-top: 1px solid #222121;
-        border-bottom: 1px solid #151515;
+        background: #080808;
+        border-top: 1px solid rgb(63 206 208 / 16%);
+        border-bottom: 1px solid #000000;
     }
 
     figure {
@@ -268,10 +267,6 @@ body {
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
-
-        &:hover {
-            background: #555555;
-        }
 
         &.active {
             opacity: 0;
@@ -308,7 +303,7 @@ body {
         }
 
         .back {
-            background: #555555;
+            background: #080808;
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
         }
@@ -374,7 +369,7 @@ body {
 .satellite-grid-content {
     overflow-y: scroll;
     height: 0;
-    background: #555555;
+    background: #080808;
     visibility: hidden;
     z-index: 400;
     -webkit-overflow-scrolling: touch;
@@ -393,7 +388,7 @@ body {
         overflow: hidden;
         height: 0;
         opacity: 0;
-        background: #555555;
+        background: #080808;
 
         &.show {
             height: auto;
@@ -549,7 +544,7 @@ p.dummy-text:nth-child(3) {
         figure,
         .placeholder {
             width: 100%;
-            height: auto;
+            height: 94px;
         }
     }
 }
