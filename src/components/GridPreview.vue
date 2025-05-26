@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onMounted} from 'vue';
+import { ref, defineProps, onMounted, onUnmounted} from 'vue';
 
 const props = defineProps({
   GridData: {
@@ -29,8 +29,7 @@ const itemRefs = ref({});
 const resizeTimeout = ref(null);
 const didScroll = ref(false);
 
-
-// Main features
+// Main Features
 function resizePlaceholder() {
 		// need to recalculate all these values as the size of the window changes
         itemSize.value = { width: itemRefs.value[gridData.value[0].id].offsetWidth, height: itemRefs.value[gridData.value[0].id].offsetHeight };
@@ -48,7 +47,6 @@ function resizePlaceholder() {
 }
 
 function loadContent() {
-    console.log('loadContent called');
     showContent.value = true;
     showLoader.value = true;
 
@@ -76,7 +74,6 @@ function hideContent() {
 }
 
 function animFn() {
-    console.log('animFn called');
     gridData.value[selectedItem.value.index].active = true;
     gridActive.value = true;
     resizePlaceholder();    
@@ -154,6 +151,17 @@ function scrollHandler() {
 	}
 };
 
+function onScroll() {
+	if ( isAnimating.value ) {
+		window.scrollTo( gridWrap.value.scrollPosition ? gridWrap.value.scrollPosition.x : 0, gridWrap.value.scrollPosition ? gridWrap.valscrollPosition.y : 0 );
+	}
+	else {
+		gridWrap.value.scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+		// change the grid perspective origin as we scroll the page
+		scrollHandler();
+	}
+}
+
 function resizeHandler() {
 		function delayed() {
 			resizePlaceholder();
@@ -178,16 +186,12 @@ onMounted(() => {
 	placeholderStyle.value.height = itemSize.value.height + 'px';
 
     window.addEventListener('resize', resizeHandler);
-    window.addEventListener('scroll', () => {
-				if ( isAnimating.value ) {
-					window.scrollTo( gridWrap.value.scrollPosition ? gridWrap.value.scrollPosition.x : 0, gridWrap.value.scrollPosition ? gridWrap.value.scrollPosition.y : 0 );
-				}
-				else {
-					gridWrap.value.scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
-					// change the grid perspective origin as we scroll the page
-					scrollHandler();
-				}
-			});
+    window.addEventListener('scroll', onScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', resizeHandler);
+    window.removeEventListener('scroll', onScroll);
 });
 </script>
 
