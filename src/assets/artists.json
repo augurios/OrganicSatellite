@@ -3,27 +3,32 @@
         {
             "name": "Cryo Drift",
             "image": "/img/logoCD.svg",
-            "description": "This is Cryo Drift."
+            "description": "This is Cryo Drift.",
+            "id": "cryo-drift"
         },
         {
             "name": "Ecliptic Cycles",
             "image": "/img/LogoEC.svg",
-            "description": "This is Ecliptic Cycles."
+            "description": "This is Ecliptic Cycles.",
+            "id": "ecliptic-cycles"
         },
         {
             "name": "Gravitas Fracture",
             "image": "/img/logoGF.svg",
-            "description": "This is Gravitas Fracture."
+            "description": "This is Gravitas Fracture.",
+            "id": "gravitas-fracture"
         },
         {
             "name": "Neural Pulsar",
             "image": "/img/logoNP.svg",
-            "description": "This is Neural Pulsar."
+            "description": "This is Neural Pulsar.",
+            "id": "neural-pulsar"
         },
         {
             "name": "Reverb Tail",
             "image": "/img/logoRT.svg",
-            "description": "This is Reverb Tail."
+            "description": "This is Reverb Tail.",
+            "id": "reverb-tail"
         }
     ]
 }

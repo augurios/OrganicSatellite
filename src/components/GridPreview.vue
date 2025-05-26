@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, nextTick, onMounted } from 'vue';
+import { ref, defineProps, onMounted} from 'vue';
 
 const props = defineProps({
   GridData: {
@@ -9,128 +9,227 @@ const props = defineProps({
   }
 });
 
+// Define refs
 const gridData = ref(props.GridData);
-
-// Refs for DOM elements
-const gridWrap = ref(null);
 const grid = ref(null);
-const contentEl = ref(null);
-const loader = ref(null);
-const contentItems = ref([]);
-const gridItems = ref([]);
-const placeholder = ref(null);
+const gridWrap = ref(null);
 const isAnimating = ref(false);
-const support = ref(true); // fallback for feature detection
+const showLoader = ref(false);
+const showContent = ref(false);
+const gridActive = ref(false);
+const selectedItem = ref(null);
+const itemSize = ref(null);
+const placeholderStyle = ref({
+    width: '0px',
+    height: '0px',
+    left: '0px',
+    top: '0px'
+});
+const itemRefs = ref({});
+const resizeTimeout = ref(null);
+const didScroll = ref(false);
 
-// Helper: class manipulation (simple version of classie)
-function addClass(el, className) {
-  if (el && !el.classList.contains(className)) el.classList.add(className);
-}
-function removeClass(el, className) {
-  if (el && el.classList.contains(className)) el.classList.remove(className);
-}
 
-// Placeholder creation
-function createPlaceholder(itemContent) {
-  const div = document.createElement('div');
-  div.className = 'placeholder';
-  div.innerHTML = itemContent;
-  return div;
-}
-
-// Resize placeholder to fit grid
+// Main features
 function resizePlaceholder() {
-  if (!placeholder.value || !grid.value) return;
-  placeholder.value.style.width = grid.value.offsetWidth + 'px';
-  placeholder.value.style.height = grid.value.offsetHeight + 'px';
-  placeholder.value.style.left = 0;
-  placeholder.value.style.top = 0;
+		// need to recalculate all these values as the size of the window changes
+        itemSize.value = { width: itemRefs.value[gridData.value[0].id].offsetWidth, height: itemRefs.value[gridData.value[0].id].offsetHeight };
+		if( selectedItem.value && selectedItem.value.itemId ) {
+			// set the placeholders top to "0 - grid offsetTop" and left to "0 - grid offsetLeft"
+			
+			var gridOffset = getOffset( grid.value );
+			
+			placeholderStyle.value.left = Number( -1 * ( gridOffset.left - scrollX() ) ) + 'px';
+			placeholderStyle.value.top = Number( -1 * ( gridOffset.top - scrollY() ) ) + 'px';
+			// set the placeholders width to windows width and height to windows height
+			placeholderStyle.value.width = getViewportW() + 'px';
+			placeholderStyle.value.height = getViewportH() + 'px';
+		}
 }
 
-// Animation end event name
-const transEndEventName = 'transitionend';
+function loadContent() {
+    console.log('loadContent called');
+    showContent.value = true;
+    showLoader.value = true;
 
-// Main function (adapted)
-function onFigureClick(pos) {
-  if (isAnimating.value) return false;
-  isAnimating.value = true;
-  const self = {
-    loader: loader.value,
-    contentEl: contentEl.value,
-    contentItems: contentItems.value,
-    gridItems: gridItems.value,
-    grid: grid.value,
-    gridWrap: gridWrap.value,
-    isAnimating: isAnimating.value,
-    placeholder: placeholder.value,
-    support: support.value,
-    _createPlaceholder: createPlaceholder,
-    _resizePlaceholder: resizePlaceholder
-  };
-  function loadContent() {
     setTimeout(() => {
-      removeClass(self.loader, 'show');
-      addClass(self.contentItems[pos], 'show');
+      showLoader.value = false;
+      gridData.value[selectedItem.value.index].show = true;
       isAnimating.value = false;
+      document.body.classList.add('noscroll');
     }, 1000);
-    addClass(self.contentEl, 'show');
-    addClass(self.loader, 'show');
-    addClass(document.body, 'noscroll');
-  }
-  if (!self.support) {
-    loadContent();
-    return false;
-  }
-  const currentItem = self.gridItems[pos];
-  const itemContent = currentItem.innerHTML;
-  self.placeholder = createPlaceholder(itemContent);
-  placeholder.value = self.placeholder;
-  self.placeholder.style.left = currentItem.offsetLeft + 'px';
-  self.placeholder.style.top = currentItem.offsetTop + 'px';
-  self.grid.appendChild(self.placeholder);
-  function animFn() {
-    addClass(currentItem, 'active');
-    addClass(self.gridWrap, 'view-full');
-    resizePlaceholder();
-    function onEndTransitionFn(ev) {
-      if (ev.propertyName.indexOf('transform') === -1) return false;
-      self.placeholder.removeEventListener(transEndEventName, onEndTransitionFn);
-      loadContent();
-    }
-    self.placeholder.addEventListener(transEndEventName, onEndTransitionFn);
-  }
+}
+
+function hideContent() {
+
+		showContent.value = false;
+        gridData.value[selectedItem.value.index].show = false;
+		gridActive.value = false;
+        
+        setTimeout( function() { document.body.classList.remove('noscroll'); }, 25 );
+
+		// reset placeholder style values
+        placeholderStyle.value.left = itemRefs.value[selectedItem.value.itemId].offsetLeft + 'px';
+		placeholderStyle.value.top = itemRefs.value[selectedItem.value.itemId].offsetTop + 'px';
+		placeholderStyle.value.width = itemSize.value.width + 'px';
+		placeholderStyle.value.height = itemSize.value.height + 'px';
+}
+
+function animFn() {
+    console.log('animFn called');
+    gridData.value[selectedItem.value.index].active = true;
+    gridActive.value = true;
+    resizePlaceholder();    
+}
+
+function onFigureClick(itemId, index) {
+  if (isAnimating.value) return false;
+  selectedItem.value = {itemId: itemId, index: index};
+  isAnimating.value = true;
+
+  placeholderStyle.value.left = itemRefs.value[selectedItem.value.itemId].offsetLeft + 'px';
+  placeholderStyle.value.top = itemRefs.value[selectedItem.value.itemId].offsetTop + 'px';
+  
   setTimeout(animFn, 25);
 }
 
-// Collect grid and content items after mount
+function onEndTransitionFn(ev) {
+      if (ev.propertyName.indexOf('transform') === -1) return false;
+      if (selectedItem.value && gridActive.value) loadContent();
+      if (!gridActive.value) {
+          gridData.value[selectedItem.value.index].active = false;
+          selectedItem.value = null;
+      }
+}
+
+//Helpers
+var docElem = window.document.documentElement;
+
+function scrollX() {
+	return window.pageXOffset || docElem.scrollLeft; 
+}
+
+function scrollY() {
+	return window.pageYOffset || docElem.scrollTop;
+}
+
+function getOffset(el) {
+	var offset = el.getBoundingClientRect();
+	return { top : offset.top + scrollY(), left : offset.left + scrollX() };
+}
+
+function getViewportW() {
+	var client = docElem['clientWidth'],
+		inner = window['innerWidth'];
+	
+	if( client < inner )
+		return inner;
+	else
+		return client;
+}
+
+function getViewportH() {
+	var client = docElem['clientHeight'],
+		inner = window['innerHeight'];
+	
+	if( client < inner )
+		return inner;
+	else
+		return client;
+}
+
+function scrollPage() {
+		var perspY = scrollY() + getViewportH() / 2;
+
+		gridWrap.value.style.WebkitPerspectiveOrigin = '50% ' + perspY + 'px';
+		gridWrap.value.style.MozPerspectiveOrigin = '50% ' + perspY + 'px';
+		gridWrap.value.style.perspectiveOrigin = '50% ' + perspY + 'px';
+		didScroll.value = false;
+};
+
+function scrollHandler() {
+	if( !didScroll.value ) {
+		didScroll.value = true;
+		setTimeout( () => { scrollPage(); }, 60 );
+	}
+};
+
+function resizeHandler() {
+		function delayed() {
+			resizePlaceholder();
+			scrollPage();
+			resizeTimeout.value = null;
+		}
+		if ( resizeTimeout.value ) {
+			clearTimeout( resizeTimeout.value );
+		}
+		resizeTimeout.value = setTimeout( delayed, 50 );
+}
+
+function setItemRef(id, el) {
+  if (el) itemRefs.value[id] = el;
+}
+
+//Life Cycle Hooks
 onMounted(() => {
-  nextTick(() => {
-    gridItems.value = Array.from(grid.value.querySelectorAll('figure'));
-    contentItems.value = Array.from(contentEl.value.querySelectorAll('div'));
-  });
+    itemSize.value = { width: itemRefs.value[gridData.value[0].id].offsetWidth, height: itemRefs.value[gridData.value[0].id].offsetHeight };
+
+    placeholderStyle.value.width = itemSize.value.width + 'px';
+	placeholderStyle.value.height = itemSize.value.height + 'px';
+
+    window.addEventListener('resize', resizeHandler);
+    window.addEventListener('scroll', () => {
+				if ( isAnimating.value ) {
+					window.scrollTo( gridWrap.value.scrollPosition ? gridWrap.value.scrollPosition.x : 0, gridWrap.value.scrollPosition ? gridWrap.value.scrollPosition.y : 0 );
+				}
+				else {
+					gridWrap.value.scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+					// change the grid perspective origin as we scroll the page
+					scrollHandler();
+				}
+			});
 });
 </script>
 
 <template>
     <section class="satellite-grid vertical" id="grid3d">
-        <div class="satellite-grid-wrap" ref="gridWrap">
+        <div class="satellite-grid-wrap" :class="{ 'view-full' : gridActive }" ref="gridWrap">
           <div class="satellite-grid-gallery" ref="grid">
-            <figure v-for="(gridItem, idx) in gridData" :key="'img-'+gridItem.image" @click="onFigureClick(idx)"><img :src="gridItem.image" :alt="gridItem.name"/></figure>
+            <figure v-for="(gridItem, index) in gridData" :key="'item-'+gridItem.id" @click="onFigureClick(gridItem.id,index)" :class="{ active : gridItem.active }" :ref="el => setItemRef(gridItem.id, el)">
+                <img :src="gridItem.image" :alt="gridItem.name"/>
+            </figure>
+
+            <div class="placeholder" v-if="selectedItem && selectedItem.itemId" :style="placeholderStyle" @transitionend="onEndTransitionFn">
+                <div class="front">
+                    <img :src="gridData[selectedItem.index].image" alt="Placeholder Image"/>
+                </div>  
+                <div class="back"></div>
+            </div>
+
           </div>
         </div><!-- /grid-wrap -->
-        <div class="satellite-grid-content" ref="contentEl">
-          <div v-for="(gridItemContet, idx) in gridData" :key="'cont-'+gridItemContet.image">
-            <img :src="gridItemContet.image" :alt="gridItemContet.name"/>
-            <h2>{{ gridItemContet.name }}</h2>
-            <p class="dummy-text"> {{ gridItemContet.description }}</p>
+        <div class="satellite-grid-content" :class="{ show : showContent }" ref="contentEl">
+          <div :class="{ show : gridData[selectedItem.index].show }" v-if="selectedItem && selectedItem.itemId">
+            <img :src="gridData[selectedItem.index].image" :alt="gridData[selectedItem.index].name"/>
+            <h2>{{ gridData[selectedItem.index].name }}</h2>
+            <p class="dummy-text"> {{ gridData[selectedItem.index].description }}</p>
           </div>
-          <span class="satellite-grid-loading" ref="loader"></span>
-          <span class="icon satellite-grid-close-content"></span>
+          <span class="satellite-grid-loading" :class="{ show : showLoader }"></span>
+          <span class="icon satellite-grid-close-content" @click="hideContent"></span>
         </div>
       </section>
 </template>
 
 <style lang="scss">
+
+body {
+	position: relative;
+}
+
+.noscroll {
+	overflow: hidden;
+}
+
 .satellite-grid-wrap {
     margin: 10px auto 0;
     max-width: 1090px;
@@ -165,6 +264,10 @@ onMounted(() => {
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+
+        &:hover {
+            background: #555555;
+        }
 
         &.active {
             opacity: 0;
@@ -201,7 +304,7 @@ onMounted(() => {
         }
 
         .back {
-            background: white;
+            background: #555555;
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
         }
@@ -267,7 +370,7 @@ onMounted(() => {
 .satellite-grid-content {
     overflow-y: scroll;
     height: 0;
-    background: #fff;
+    background: #555555;
     visibility: hidden;
     z-index: 400;
     -webkit-overflow-scrolling: touch;
@@ -286,7 +389,7 @@ onMounted(() => {
         overflow: hidden;
         height: 0;
         opacity: 0;
-        background: #fff;
+        background: #555555;
 
         &.show {
             height: auto;
@@ -295,16 +398,39 @@ onMounted(() => {
             -webkit-transition: opacity 0.6s;
         }
     }
+
+    img {
+        width: 100%;
+    }
 }
 
 .satellite-grid-loading {
+    color: var(--turkish);
     opacity: 0;
     z-index: 1;
-    background: transparent url(../img/preloader.gif) no-repeat center center;
     transform: scale(0.5);
     -webkit-transform: scale(0.5);
     transition: opacity 0.5s, transform 0.5s;
     -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    top: calc(50% - 80px);
+    left: calc(50% - 40px);
+
+    &:after {
+        box-sizing: border-box;
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6.4px solid currentColor;
+        border-color: currentColor transparent currentColor transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
 
     &.show {
         opacity: 1;
@@ -313,19 +439,16 @@ onMounted(() => {
     }
 }
 
-.icon:before {
-    font-family: 'fontawesome';
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.close-content {
+.satellite-grid-close-content {
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -348,7 +471,7 @@ onMounted(() => {
     }
 }
 
-.satellite-grid-content > div.show ~ .close-content {
+.satellite-grid-content > div.show ~ .satellite-grid-close-content {
     opacity: 1;
     pointer-events: auto;
 }

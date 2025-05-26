@@ -41,6 +41,18 @@ const Window = ref(window);
         position: relative;
         border-right: 3px solid var(--turkish-soft);
 
+        &:after {
+            content: "";
+            display: block;
+            width: 30%;
+            height: 4px;
+            background: #181818;
+            position: absolute;
+            bottom: 0;
+            right: 16px;
+            border-radius: 24px 24px 0 0;
+        }
+
         &--cover {
             width: 88px;
             height: 88px;
