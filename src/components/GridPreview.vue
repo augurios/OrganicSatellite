@@ -1,5 +1,6 @@
 <script setup>
-import { ref, defineProps, onMounted, onUnmounted} from 'vue';
+import { ref, defineProps, onMounted, onUnmounted, watch} from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps({
   GridData: {
@@ -8,6 +9,10 @@ const props = defineProps({
     default: null
   }
 });
+
+// Router setup
+const route = useRoute();
+const router = useRouter();
 
 // Define refs
 const gridData = ref(props.GridData);
@@ -63,6 +68,9 @@ function hideContent() {
         gridData.value[selectedItem.value.index].show = false;
 		gridActive.value = false;
         
+        // Clear URL parameter
+        clearUrlParameter();
+        
         setTimeout( function() { document.body.classList.remove('noscroll'); }, 25 );
 
 		// reset placeholder style values
@@ -82,6 +90,12 @@ function onFigureClick(itemId, index) {
   if (isAnimating.value) return false;
   selectedItem.value = {itemId: itemId, index: index};
   isAnimating.value = true;
+
+  // Update URL parameter
+  router.push({ 
+    path: route.path, 
+    query: { ...route.query, artist: itemId } 
+  });
 
   placeholderStyle.value.left = itemRefs.value[selectedItem.value.itemId].offsetLeft + 'px';
   placeholderStyle.value.top = itemRefs.value[selectedItem.value.itemId].offsetTop + 'px';
@@ -177,6 +191,29 @@ function setItemRef(id, el) {
   if (el) itemRefs.value[id] = el;
 }
 
+// Function to check URL parameters and activate corresponding item
+function checkUrlParameter() {
+  const artistId = route.query.artist;
+  if (artistId && gridData.value) {
+    const index = gridData.value.findIndex(item => item.id === artistId);
+    if (index !== -1) {
+      // Wait for next tick to ensure refs are set
+      setTimeout(() => {
+        onFigureClick(artistId, index);
+      }, 100);
+    }
+  }
+}
+
+// Function to clear URL parameter when content is hidden
+function clearUrlParameter() {
+  const { artist, ...restQuery } = route.query;
+  router.push({ 
+    path: route.path, 
+    query: restQuery 
+  });
+}
+
 //Life Cycle Hooks
 onMounted(() => {
     itemSize.value = { width: itemRefs.value[gridData.value[0].id].offsetWidth, height: itemRefs.value[gridData.value[0].id].offsetHeight };
@@ -186,6 +223,9 @@ onMounted(() => {
 
     window.addEventListener('resize', resizeHandler);
     window.addEventListener('scroll', onScroll);
+    
+    // Check for URL parameter on mount
+    checkUrlParameter();
 });
 
 onUnmounted(() => {
@@ -212,13 +252,13 @@ onUnmounted(() => {
           </div>
         </div><!-- /grid-wrap -->
         <div class="satellite-grid-content" :class="{ show : showContent }" ref="contentEl">
-          <div :class="{ show : gridData[selectedItem.index].show }" v-if="selectedItem && selectedItem.itemId">
-            <img :src="gridData[selectedItem.index].image" :alt="gridData[selectedItem.index].name"/>
-            <h2>{{ gridData[selectedItem.index].name }}</h2>
-            <p class="dummy-text"> {{ gridData[selectedItem.index].description }}</p>
-          </div>
-          <span class="satellite-grid-loading" :class="{ show : showLoader }"></span>
-          <span class="icon satellite-grid-close-content" @click="hideContent"></span>
+            <div :class="{ show : gridData[selectedItem.index].show }" v-if="selectedItem && selectedItem.itemId">
+                <img :src="gridData[selectedItem.index].image" :alt="gridData[selectedItem.index].name"/>
+                <h2>{{ gridData[selectedItem.index].name }}</h2>
+                <p class="dummy-text"> {{ gridData[selectedItem.index].description }} </p>
+            </div>
+            <span class="satellite-grid-loading" :class="{ show : showLoader }"></span>
+            <span class="icon satellite-grid-close-content" @click="hideContent"><i class="fa-solid fa-close"></i></span>
         </div>
       </section>
 </template>
@@ -463,10 +503,6 @@ body {
 
     &:hover {
         color: #999;
-    }
-
-    &:before {
-        content: "\e602";
     }
 }
 
