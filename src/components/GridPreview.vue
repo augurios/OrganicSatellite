@@ -3,6 +3,7 @@ import { ref, defineProps, onMounted, onUnmounted, watch} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ReleasesData from '../assets/releases.json';
 import LatestReleases from '../components/LatestReleases.vue';
+import SatelliteSpinner from '../components/SatelliteSpinner.vue';
 
 const props = defineProps({
   GridData: {
@@ -277,7 +278,7 @@ onUnmounted(() => {
                     <LatestReleases :releases="currentReleases" />
                 </div>
             </div>
-            <span class="satellite-grid-loading" :class="{ show : showLoader }"></span>
+            <SatelliteSpinner :show="showLoader" />
             <span class="icon satellite-grid-close-content" @click="hideContent"><i class="fa-solid fa-close"></i></span>
         </div>
       </section>
@@ -420,17 +421,13 @@ body {
     }
 }
 
-.satellite-grid-content,
-.satellite-grid-loading {
+.satellite-grid-content {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     pointer-events: none;
-}
-
-.satellite-grid-content {
     overflow-y: scroll;
     height: 0;
     background: #080808;
@@ -480,50 +477,6 @@ body {
     .satellite-heading {
         margin-top: 48px;
     }
-}
-
-.satellite-grid-loading {
-    color: var(--turkish);
-    opacity: 0;
-    z-index: 1;
-    transform: scale(0.5);
-    -webkit-transform: scale(0.5);
-    transition: opacity 0.5s, transform 0.5s;
-    -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
-    box-sizing: border-box;
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    top: calc(50% - 80px);
-    left: calc(50% - 40px);
-
-    &:after {
-        box-sizing: border-box;
-        content: " ";
-        display: block;
-        width: 64px;
-        height: 64px;
-        margin: 8px;
-        border-radius: 50%;
-        border: 6.4px solid currentColor;
-        border-color: currentColor transparent currentColor transparent;
-        animation: lds-dual-ring 1.2s linear infinite;
-    }
-
-    &.show {
-        opacity: 1;
-        transform: scale(1);
-        -webkit-transform: scale(1);
-    }
-}
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 .satellite-grid-close-content {
@@ -621,7 +574,7 @@ body {
     .satellite-grid-gallery {
         figure,
         .placeholder {
-            width: 100%;
+            width: 100vw;
             height: 94px;
         }
     }

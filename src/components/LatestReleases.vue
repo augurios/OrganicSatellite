@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
+import SatelliteSpinner from '../components/SatelliteSpinner.vue';
 
 const props = defineProps({
   releases: {
@@ -10,13 +11,45 @@ const props = defineProps({
 });
 
 const Window = ref(window);
+const loading = ref(true);
+const loadedImages = ref(new Set());
+
+const totalImages = computed(() => props.releases ? props.releases.length : 0);
+
+const handleImageLoad = (releaseId) => {
+  loadedImages.value.add(releaseId);
+  
+  // Check if all images are loaded
+  if (loadedImages.value.size >= totalImages.value && totalImages.value > 0) {
+    loading.value = false;
+  }
+};
+
+// Reset loading state when releases change
+watch(() => props.releases, () => {
+  if (props.releases && props.releases.length > 0) {
+    loading.value = true;
+    loadedImages.value.clear();
+  }
+}, { immediate: true });
 </script>
 
 <template>
     <section class="satellite-release-grid">
-		<div class="satellite-release-grid__item" v-for="release in releases" :key="'item-'+release.cover" :class="{'video': release.type === 'VIDEO'}">
+        <!-- Loading indicator -->
+        <div v-if="loading" class="loading-indicator">
+            <SatelliteSpinner :show="loading" position="relative" size="20px" /> <span> Retriving Latest Releases</span>
+        </div>
+        
+		<div class="satellite-release-grid__item" v-for="release in releases" :key="'item-'+release.cover" :class="{'video': release.type === 'VIDEO', 'loading': loading}">
+            <!-- Cover image -->
 	    	<figure class="satellite-release-grid__item--cover" @click="release.type === 'VIDEO' ? Window.open(release.youtube, '_blank') : null">
-                <img :src="release.cover" :alt="release.title"/>
+                <img 
+                    :src="release.cover" 
+                    :alt="release.title"
+                    @load="handleImageLoad(release.cover)"
+                    loading="lazy"
+                />
             </figure>
             <div class="satellite-release-grid__item--info">
                 <h2>{{ release.title }}</h2>
@@ -38,6 +71,16 @@ const Window = ref(window);
 </template>
 
 <style lang="scss">
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: var(--turkish);
+    font-weight: bold;
+    font-size: 14px;
+}
+
 .satellite-release-grid {
     margin: 0 1rem;
     &__item {
@@ -45,6 +88,8 @@ const Window = ref(window);
         display: flex;
         background: #000000;
         position: relative;
+        transition: opacity 0.5s;
+        opacity: 1;
         border-right: 3px solid var(--turkish-soft);
 
         &:after {
@@ -164,6 +209,14 @@ const Window = ref(window);
                 }
             }
         }
+
+        &.loading {
+            opacity: 0;
+        }
+    }
+
+    .satellite-spinner {
+        margin-right: 8px;
     }
 }
 </style>

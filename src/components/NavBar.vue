@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
   <div class="satellite-social-links">
         <a href="https://soundcloud.com/organic-satellite-records" class="satellite-social-link" target="_blank"><i class="fab fa-soundcloud"></i></a>
         <a href="https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/" class="satellite-social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://open.spotify.com/playlist/4Wbbwx5zihjNkDSujsewQV" class="satellite-social-link" target="_blank"><i class="fab fa-spotify"></i></a>
+        <a href="https://open.spotify.com/playlist/1HYWN2OQMZqq3nqKkQTZcY" class="satellite-social-link" target="_blank"><i class="fab fa-spotify"></i></a>
         <a href="https://www.tiktok.com/@organicsatelliterecords" class="satellite-social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
   </div>
   <nav class="satellite-navbar">

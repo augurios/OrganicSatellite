@@ -171,6 +171,7 @@ export default {
         height: 200vh;
         pointer-events: none;
         z-index: -1;
+        background: var(--color-background);
     }
 
     @keyframes meteoroStyle1 {
