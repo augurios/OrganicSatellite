@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router';
 import ReleasesData from '../assets/releases.json';
 import LatestReleases from '../components/LatestReleases.vue';
 import SatelliteSpinner from '../components/SatelliteSpinner.vue';
+import LoadingIndicator from '../components/LoadingIndicator.vue';
+import { useLazyLoading } from '../composables/useLazyLoading.js';
 
 const props = defineProps({
   GridData: {
@@ -37,6 +39,20 @@ const itemRefs = ref({});
 const resizeTimeout = ref(null);
 const didScroll = ref(false);
 const currentReleases = ref(null);
+
+// Use the lazy loading composable for grid images
+const { loading: gridLoading, handleItemLoad: handleGridImageLoad, loadingMessage: gridLoadingMessage } = useLazyLoading(
+  () => gridData.value?.length || 0,
+  () => gridData.value,
+  { 
+    loadingMessage: 'Loading Artists...',
+    itemIdentifier: (item) => item.id
+  }
+);
+
+const handleImageLoad = (gridItem) => {
+  handleGridImageLoad(gridItem);
+};
 
 // Main Features
 function resizePlaceholder() {
@@ -242,10 +258,19 @@ onUnmounted(() => {
 
 <template>
     <section class="satellite-grid vertical" id="grid3d">
+        <!-- Loading indicator for grid -->
+        <LoadingIndicator :show="gridLoading" :message="gridLoadingMessage" />
+        
         <div class="satellite-grid-wrap" :class="{ 'view-full' : gridActive }" ref="gridWrap">
           <div class="satellite-grid-gallery" ref="grid">
-            <figure v-for="(gridItem, index) in gridData" :key="'item-'+gridItem.id" @click="onFigureClick(gridItem.id,index)" :class="{ active : gridItem.active }" :ref="el => setItemRef(gridItem.id, el)">
-                <img :src="gridItem.image" :alt="gridItem.name"/>
+            <figure v-for="(gridItem, index) in gridData" :key="'item-'+gridItem.id" 
+                   @click="onFigureClick(gridItem.id,index)" 
+                   :class="{ active : gridItem.active, loading: gridLoading }" 
+                   :ref="el => setItemRef(gridItem.id, el)">
+                <img :src="gridItem.image" 
+                     :alt="gridItem.name"
+                     @load="handleImageLoad(gridItem)"
+                     loading="lazy"/>
             </figure>
 
             <div class="placeholder" v-if="selectedItem && selectedItem.itemId" :style="placeholderStyle" @transitionend="onEndTransitionFn">
@@ -332,8 +357,13 @@ body {
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        transition: opacity 0.5s;
 
         &.active {
+            opacity: 0;
+        }
+
+        &.loading {
             opacity: 0;
         }
 
