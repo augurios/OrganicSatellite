@@ -1,6 +1,8 @@
 <script setup>
 import { ref, defineProps, onMounted, onUnmounted, watch} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import ReleasesData from '../assets/releases.json';
+import LatestReleases from '../components/LatestReleases.vue';
 
 const props = defineProps({
   GridData: {
@@ -33,6 +35,7 @@ const placeholderStyle = ref({
 const itemRefs = ref({});
 const resizeTimeout = ref(null);
 const didScroll = ref(false);
+const currentReleases = ref(null);
 
 // Main Features
 function resizePlaceholder() {
@@ -90,6 +93,8 @@ function onFigureClick(itemId, index) {
   if (isAnimating.value) return false;
   selectedItem.value = {itemId: itemId, index: index};
   isAnimating.value = true;
+
+  currentReleases.value = ReleasesData.releases.filter(release => release.artist.toLowerCase().includes(gridData.value[selectedItem.value.index].name.toLowerCase()));
 
   // Update URL parameter
   router.push({ 
@@ -253,9 +258,24 @@ onUnmounted(() => {
         </div><!-- /grid-wrap -->
         <div class="satellite-grid-content" :class="{ show : showContent }" ref="contentEl">
             <div :class="{ show : gridData[selectedItem.index].show }" v-if="selectedItem && selectedItem.itemId">
-                <img :src="gridData[selectedItem.index].image" :alt="gridData[selectedItem.index].name"/>
-                <h2>{{ gridData[selectedItem.index].name }}</h2>
-                <p class="dummy-text"> {{ gridData[selectedItem.index].description }} </p>
+                <img :src="gridData[selectedItem.index].image" :alt="gridData[selectedItem.index].name" class="dummy-img"/>
+                <!-- <h2>{{ gridData[selectedItem.index].name }}</h2> -->
+
+                <div class="dummy-text">
+                    <div> <small><strong>Joined: </strong> 2024</small></div>
+                    <p> {{ gridData[selectedItem.index].description }} </p>
+                    
+                    <div class="social-sink">
+                        <strong>Follow:</strong>
+                        <a :href="gridData[selectedItem.index].soundcloud" target="_blank" v-if="gridData[selectedItem.index].soundcloud"> <i class="fab fa-soundcloud"></i> </a>
+                        <a :href="gridData[selectedItem.index].spotify" target="_blank" v-if="gridData[selectedItem.index].spotify"> <i class="fab fa-spotify"></i> </a>
+                        <a :href="gridData[selectedItem.index].youtube" target="_blank" v-if="gridData[selectedItem.index].youtube"> <i class="fab fa-youtube"></i> </a>
+                    </div>
+
+                    <h2 class="satellite-heading">RELEASES</h2>
+
+                    <LatestReleases :releases="currentReleases" />
+                </div>
             </div>
             <span class="satellite-grid-loading" :class="{ show : showLoader }"></span>
             <span class="icon satellite-grid-close-content" @click="hideContent"><i class="fa-solid fa-close"></i></span>
@@ -267,6 +287,10 @@ onUnmounted(() => {
 
 body {
 	position: relative;
+
+    strong {
+        font-weight: bolder;
+    }
 }
 
 .noscroll {
@@ -372,8 +396,8 @@ body {
         transform: translateY(100px);
         -webkit-transform: translateY(100px);
     }
-    .content > div.show .dummy-img,
-    .content > div.show .dummy-text {
+    .satellite-grid-content > div.show .dummy-img,
+    .satellite-grid-content > div.show .dummy-text {
         transform: translateY(0);
         -webkit-transform: translateY(0);
     }
@@ -440,6 +464,21 @@ body {
 
     img {
         width: 100%;
+    }
+
+    .satellite-release-grid {
+        margin: 0;
+
+        &__item {
+            background: #181818;
+            &:after {
+                background: #080808;
+            }
+        }
+    }
+
+    .satellite-heading {
+        margin-top: 48px;
     }
 }
 
@@ -526,31 +565,34 @@ body {
     opacity: 1;
 }
 
-p.dummy-text:nth-child(2) {
+.dummy-text:nth-child(2) {
     transition-delay: 0.1s;
     -webkit-transition-delay: 0.1s;
 }
-p.dummy-text:nth-child(3) {
+.dummy-text:nth-child(3) {
     transition-delay: 0.2s;
     -webkit-transition-delay: 0.2s;
 }
 
-.dummy-img {
-    height: 400px;
-    background-color: #ddd;
-    margin: 30px auto;
-}
 
 .dummy-text {
-    text-align: left;
     margin: 0 auto;
-    padding: 10px 0;
-    color: #ddd;
     font-size: 1em;
-    font-family: 'Blokk', Arial, serif;
+
+    p {
+        margin-bottom: 12px;
+    }
 
     &:last-child {
         padding-bottom: 100px;
+    }
+}
+
+.social-sink {
+    a {
+        display: inline-block;
+        margin: 0 6px;
+        font-size: 24px;
     }
 }
 

@@ -1,8 +1,14 @@
 <script setup>
-import ReleasesData from '../assets/releases.json';
 import { ref } from 'vue';
 
-const releases = ref(ReleasesData.releases);
+const props = defineProps({
+  releases: {
+    type: Array,
+    required: false,
+    default: null
+  }
+});
+
 const Window = ref(window);
 </script>
 

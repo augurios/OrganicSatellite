@@ -3,32 +3,47 @@
         {
             "name": "Cryo Drift",
             "image": "/img/logoCD.svg",
-            "description": "This is Cryo Drift.",
-            "id": "cryo-drift"
+            "description": "Cryo Drift is all about space exploration thru spatial audio sound design, all atmospheric and constant with a touch of folk and alien.",
+            "id": "cryo-drift",
+            "soundcloud": "https://on.soundcloud.com/eMfHMKvL1TBFHh3v9",
+            "spotify": "https://open.spotify.com/artist/0fDXVPoVlynjLOaAIXiGLp?si=YhAXvsoRTe2JHPiZ5d--7A",
+            "youtube": "https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/"
         },
         {
             "name": "Ecliptic Cycles",
             "image": "/img/LogoEC.svg",
-            "description": "This is Ecliptic Cycles.",
-            "id": "ecliptic-cycles"
+            "description": "Ecliptic Cycles is how retro sci-fi met future garage, synthetic with a bit of nostalgia without forgetting to also look forward.",
+            "id": "ecliptic-cycles",
+            "soundcloud": "https://on.soundcloud.com/eMfHMKvL1TBFHh3v9",
+            "spotify": "https://open.spotify.com/artist/55XKtiDCqCzKxeY2N6sBhG?si=fy5l8IeDQxqyvwd_jr-DBg",
+            "youtube": "https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/"
         },
         {
             "name": "Gravitas Fracture",
             "image": "/img/logoGF.svg",
-            "description": "This is Gravitas Fracture.",
-            "id": "gravitas-fracture"
+            "description": "Gravitas Fracture is the sound of a garden growing strong in other planets and systems.",
+            "id": "gravitas-fracture",
+            "soundcloud": "https://on.soundcloud.com/eMfHMKvL1TBFHh3v9",
+            "spotify": "https://open.spotify.com/artist/2tMjlXicK9XJl5RveRjwZP?si=4DzEpl4JTkOXLe77UT9KzA",
+            "youtube": "https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/"
         },
         {
             "name": "Neural Pulsar",
             "image": "/img/logoNP.svg",
-            "description": "This is Neural Pulsar.",
-            "id": "neural-pulsar"
+            "description": "Enigmatic, post-cyberpunk, Neural Pulsar is garage with a bit of questioning of existence.",
+            "id": "neural-pulsar",
+            "soundcloud": "https://on.soundcloud.com/eMfHMKvL1TBFHh3v9",
+            "spotify": "https://open.spotify.com/artist/0oYzrOKR7EuEowXbjgYlIT?si=fMBcP0fpRFqy8ZuPlPY21g",
+            "youtube": "https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/"
         },
         {
             "name": "Reverb Tail",
             "image": "/img/logoRT.svg",
-            "description": "This is Reverb Tail.",
-            "id": "reverb-tail"
+            "description": "Reverb Tail is all about the calm of strong emotions getting lost in the reflections of reverbeting sounds.",
+            "id": "reverb-tail",
+            "soundcloud": "https://on.soundcloud.com/eMfHMKvL1TBFHh3v9",
+            "spotify": "https://open.spotify.com/artist/5BPo81UjuR2KngFu45nFhh?si=uxeIF9yqRRGqYtoOztw2Fw",
+            "youtube": "https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/"
         }
     ]
 }
