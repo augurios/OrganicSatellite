@@ -1,17 +1,69 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { getCurrentInstance } from 'vue'
+
+const { proxy } = getCurrentInstance()
+
+// Event tracking functions
+const trackSocialClick = (platform) => {
+  proxy.$gtag.event('click', {
+    event_category: 'social',
+    event_label: platform,
+    event_source: 'navbar'
+  })
+}
+
+const trackNavigationClick = (page) => {
+  proxy.$gtag.event('navigate', {
+    event_category: 'navigation',
+    event_label: page,
+    event_source: 'navbar'
+  })
+}
 </script>
 <template>
   <div class="satellite-social-links">
-        <a href="https://soundcloud.com/organic-satellite-records" class="satellite-social-link" target="_blank"><i class="fab fa-soundcloud"></i></a>
-        <a href="https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/" class="satellite-social-link" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://open.spotify.com/playlist/1HYWN2OQMZqq3nqKkQTZcY" class="satellite-social-link" target="_blank"><i class="fab fa-spotify"></i></a>
-        <a href="https://www.tiktok.com/@organicsatelliterecords" class="satellite-social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://soundcloud.com/organic-satellite-records" 
+           class="satellite-social-link" 
+           target="_blank"
+           @click="trackSocialClick('soundcloud')">
+           <i class="fab fa-soundcloud"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/" 
+           class="satellite-social-link" 
+           target="_blank"
+           @click="trackSocialClick('youtube')">
+           <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://open.spotify.com/playlist/1HYWN2OQMZqq3nqKkQTZcY" 
+           class="satellite-social-link" 
+           target="_blank"
+           @click="trackSocialClick('spotify')">
+           <i class="fab fa-spotify"></i>
+        </a>
+        <a href="https://www.tiktok.com/@organicsatelliterecords" 
+           class="satellite-social-link" 
+           target="_blank"
+           @click="trackSocialClick('tiktok')">
+           <i class="fab fa-tiktok"></i>
+        </a>
   </div>
   <nav class="satellite-navbar">
-      <RouterLink class="satellite-navbar-link" to="/">Releases</RouterLink>
-      <RouterLink class="satellite-navbar-link" to="/artists">Artists</RouterLink>
-      <RouterLink class="satellite-navbar-link" to="/about">About</RouterLink>
+      <RouterLink class="satellite-navbar-link" 
+                  to="/" 
+                  @click="trackNavigationClick('releases')">
+                  Releases
+      </RouterLink>
+      <RouterLink class="satellite-navbar-link" 
+                  to="/artists" 
+                  @click="trackNavigationClick('artists')">
+                  Artists
+      </RouterLink>
+      <RouterLink class="satellite-navbar-link" 
+                  to="/about" 
+                  @click="trackNavigationClick('about')">
+                  About
+      </RouterLink>
   </nav>
 </template>
 <style lang="scss">

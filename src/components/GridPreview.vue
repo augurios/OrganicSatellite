@@ -339,9 +339,17 @@ body {
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
 
+    @media screen and (min-width: 1000px) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+
     figure,
     .placeholder {
-        width: 340px;
+        min-width: 340px;
         height: 300px;
         margin-bottom: 0;
         background: #080808;
@@ -357,7 +365,8 @@ body {
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
-        transition: opacity 0.5s;
+        transition: opacity 0.5s, background 0.5s;
+        
 
         &.active {
             opacity: 0;
@@ -372,6 +381,16 @@ body {
             width: 100%;
             height: 92px;
             object-fit: cover;
+
+            @media screen and (min-width: 1000px) {
+                height: auto;
+            }
+        }
+
+        @media screen and (min-width: 1000px) {
+            &:hover {
+                background: #0f0f0f;
+            }
         }
     }
 
@@ -541,6 +560,11 @@ body {
     opacity: 0;
     transition: opacity 0.5s, transform 0.5s;
     -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+}
+
+.dummy-img {
+    margin: 0 auto;
+    display: block;
 }
 
 .satellite-grid-content > div.show .dummy-img,

@@ -65,6 +65,12 @@ const handleImageLoad = (release) => {
 <style lang="scss">
 .satellite-release-grid {
     margin: 0 1rem;
+
+    @media screen and (min-width: 720px) {
+        margin: 0 auto;
+        max-width: 720px;
+    }
+
     &__item {
         margin-bottom: 32px;
         display: flex;
