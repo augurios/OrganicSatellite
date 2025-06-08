@@ -43,11 +43,14 @@ const props = defineProps({
   color: var(--spinner-color);
   opacity: 0;
   z-index: 1;
-  transform: scale(0.5);
+  transform: scale(0.5) translateZ(0);
+  -webkit-transform: scale(0.5) translateZ(0);
   transition: opacity 0.5s, transform 0.5s;
+  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
   box-sizing: border-box;
   display: inline-block;
   pointer-events: none;
+  will-change: opacity, transform;
 
   &.position-fixed {
     position: fixed;
@@ -72,11 +75,14 @@ const props = defineProps({
     border: calc(var(--spinner-size) * 0.08) solid currentColor;
     border-color: currentColor transparent currentColor transparent;
     animation: satellite-spinner-rotate 1.2s linear infinite;
+    -webkit-animation: satellite-spinner-rotate 1.2s linear infinite;
+    will-change: transform;
   }
 
   &.show {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
+    -webkit-transform: scale(1) translateZ(0);
   }
 }
 
@@ -86,6 +92,15 @@ const props = defineProps({
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes satellite-spinner-rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
   }
 }
 </style>

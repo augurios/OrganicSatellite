@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/fontawesome/all.min.css">
-    <script src="/fontawesome/all.min.js"></script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/fontawesome/all.min.css" as="style">
+    <link rel="preload" href="/src/assets/logo.png" as="image">
+    
+    <!-- Font loading optimizations -->
+    <link rel="stylesheet" href="/fontawesome/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/fontawesome/all.min.css"></noscript>
+    
+    <script src="/fontawesome/all.min.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Organic Satellite Records</title>
     <style>

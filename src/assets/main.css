@@ -19,6 +19,7 @@ a,
   text-decoration: none;
   color: var(--turkish);
   transition: 0.4s;
+  -webkit-transition: 0.4s;
   padding: 3px;
 }
 
@@ -28,9 +29,42 @@ a,
   }
 }
 
+/* Touch device optimizations */
+@media (hover: none) {
+  a:active {
+    background-color: var(--turkish-soft);
+  }
+}
+
 .satellite-heading {
   padding: 6px 0 8px;
   margin-bottom: 24px;
   border-top: 1px solid var(--turkish-soft);
   border-bottom: 1px solid var(--turkish-soft);
+}
+
+/* CSS Grid fallback for older browsers */
+@supports not (display: grid) {
+  .satellite-grid-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .satellite-grid-gallery figure {
+    flex-basis: calc(33.333% - 10px);
+    margin-bottom: 20px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

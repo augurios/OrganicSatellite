@@ -6,6 +6,10 @@ import { createGtag } from 'vue-gtag'
 
 import App from './App.vue'
 import router from './router'
+import { addFeatureClasses } from './utils/browserDetection.js'
+
+// Add feature detection classes to document
+addFeatureClasses()
 
 const app = createApp(App)
 

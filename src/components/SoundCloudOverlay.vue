@@ -10,8 +10,13 @@ const toggleDrawer = () => {
 
     if (isOpen.value) {
         document.body.style.overflow = 'hidden'; // Prevent scrolling when the drawer is open
+        // Add iOS Safari specific fix
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
     } else {
         document.body.style.overflow = ''; // Restore scrolling when the drawer is closed
+        document.body.style.position = '';
+        document.body.style.width = '';
     }
 };
 </script>
@@ -35,6 +40,8 @@ const toggleDrawer = () => {
     width: 100%;
     text-align: left;
     transition: bottom 0.6s ease-in-out;
+    -webkit-transition: bottom 0.6s ease-in-out;
+    will-change: bottom;
 
     &__toggle {
         font-size: 24px;
@@ -44,22 +51,33 @@ const toggleDrawer = () => {
         box-shadow: 3px -4px 19px #000;
         width: 48px;
         transition: width 0.6s ease-in-out;
+        -webkit-transition: width 0.6s ease-in-out;
         text-align: left;
         position: relative;
+        will-change: width;
 
         .fa-xmark {
             opacity: 0;
             transition: opacity 0.6s ease-in-out;
+            -webkit-transition: opacity 0.6s ease-in-out;
             position: absolute;
             top: 9px;
             right: 12px;
-
+            will-change: opacity;
         }
     }
 
     &__drawer {
         height: 456px;
         background-color: #f5f5f5;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        overflow-y: auto;
+        
+        iframe {
+            /* Ensure iframe is responsive */
+            max-width: 100%;
+            border: none;
+        }
     }
 
     &.is-open {
