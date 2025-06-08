@@ -8,10 +8,14 @@ import SatalliteFooter from './components/SatalliteFooter.vue'
 <template>
   <SatelliteHeader />
   <NavBar />
-  <RouterView />
+  <div class="view-container">
+    <RouterView />
+  </div>
   <SatalliteFooter />
 </template>
 
-<style scoped>
-
+<style lang="scss">
+  .view-container {
+        min-height: calc(100vh - 516px);
+  }
 </style>

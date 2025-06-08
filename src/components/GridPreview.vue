@@ -338,11 +338,12 @@ body {
     -webkit-transition: all 0.5s cubic-bezier(0,0,0.25,1);
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
+    margin-bottom: 48px;
 
     @media screen and (min-width: 1000px) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(5, 1fr);
+        // grid-template-rows: repeat(5, 1fr);
         grid-column-gap: 0px;
         grid-row-gap: 0px;
     }
