@@ -37,6 +37,7 @@ const toggleDrawer = () => {
     position: fixed;
     z-index: 999;
     bottom: -456px;
+    left: 0;
     width: 100%;
     text-align: left;
     transition: bottom 0.6s ease-in-out;
@@ -75,8 +76,10 @@ const toggleDrawer = () => {
         
         iframe {
             /* Ensure iframe is responsive */
-            max-width: 100%;
             border: none;
+            max-width: 840px;
+            display: block;
+            margin: 0 auto;
         }
     }
 
