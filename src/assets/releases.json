@@ -1,105 +1,135 @@
 {
-    "releases": [
-        {
-            "title": "Cosmic Future Garage ",
-            "cover": "/img/mix2.jpg",
-            "type": "VIDEO",
-            "date": "Mar 29, 2025",
-            "artist": "Mix Vol 2",
-            "soundcloud": "",
-            "spotify": "",
-            "youtube": "https://www.youtube.com/watch?v=A70F6Z2FZ9k",
-            "pinned": true
-        },
-        {
-            "title": "Rule Of Corp",
-            "cover": "/img/roc-cover.jpg",
-            "type": "VIDEO",
-            "date": "May 23, 2025",
-            "artist": "Neural Pulsar",
-            "soundcloud": "",
-            "spotify": "",
-            "youtube": "https://www.youtube.com/watch?v=OsWHTd1rW14"
-        },
-        {
-            "title": "Reality Break",
-            "cover": "/img/realitybreak.jpg",
-            "type": "EP",
-            "date": "May 1, 2025",
-            "artist": "Neural Pulsar",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/reality-break",
-            "spotify": "https://open.spotify.com/album/4t7XZcohcshu21mtMCAf1g?si=G0b1LBjoQkC3fi8nIW16CQ",
-            "youtube": "https://www.youtube.com/watch?v=IiFrfOGegfA"
-        },
-        {
-            "title": "Tuning For Laniakea",
-            "cover": "/img/tfl-cover.jpg",
-            "type": "VIDEO",
-            "date": "Mar 29, 2025",
-            "artist": "Ecliptic Cycles",
-            "soundcloud": "",
-            "spotify": "",
-            "youtube": "https://www.youtube.com/watch?v=1B8nmKCUKkM"
-        },
-        {
-            "title": "Signs of Life",
-            "cover": "/img/signsoflife.jpg",
-            "type": "SINGLE",
-            "date": "Mar 12, 2025",
-            "artist": "Cryo Drift, Gravitas Fracture",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/signs-of-life",
-            "spotify": "https://open.spotify.com/album/0PKweyDzazgpqH9sXN2qFl?si=49FCX9abRoClrt8vYKKLlQ",
-            "youtube": ""
-        },
-        {
-            "title": "Astronautilus",
-            "cover": "/img/astronautilus.jpg",
-            "type": "EP",
-            "date": "Mar 12, 2025",
-            "artist": "Cryo Drift",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/astronautilus",
-            "spotify": "https://open.spotify.com/album/2QEXE1lbWfmGTypjtXe5eN?si=2ryHL8P1Tne-Yv7QemUtrw",
-            "youtube": "https://www.youtube.com/watch?v=KREaP-bqqLs"
-        },
-        {
-            "title": "Sprout Of Light",
-            "cover": "/img/sprout.jpg",
-            "type": "EP",
-            "date": "Mar 12, 2025",
-            "artist": "Gravitas Fracture",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/sprout-of-light",
-            "spotify": "https://open.spotify.com/album/1mAROfVF7DWDHGi0503zSU?si=BBO9y5h-Qrqnbt7NcbJBdQ",
-            "youtube": ""
-        },
-        {
-            "title": "Orbitscraper",
-            "cover": "/img/orbitscraper.jpg",
-            "type": "EP",
-            "date": "Mar 12, 2025",
-            "artist": "Neural Pulsar",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/orbitscrapper",
-            "spotify": "https://open.spotify.com/album/2Isi5DBdzTSYFa9SGWmfgc?si=1pzLQHitQ9WxuuwF3nEYnQ",
-            "youtube": ""
-        },
-        {
-            "title": "Harmonic Resonance",
-            "cover": "/img/harmonicresonance.jpg",
-            "type": "EP",
-            "date": "Mar 12, 2025",
-            "artist": "Reverb Tail",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/harmonic-resonance",
-            "spotify": "https://open.spotify.com/album/6UkSiAze4celHuyfKFDba4?si=JUBCvEETQTOwimkVgcR5_g",
-            "youtube": "https://www.youtube.com/watch?v=ipQoJbMqV1U"
-        },
-        {
-            "title": "Sinusoidal",
-            "cover": "/img/sinusoidal.jpg",
-            "type": "EP",
-            "date": "Mar 11, 2025",
-            "artist": "Ecliptic Cycles",
-            "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/sinusoidal",
-            "spotify": "https://open.spotify.com/album/37Yx5w1WqBqFKC2BwHQlZA?si=4O686UPWT76efY-o3XNPBg",
-            "youtube": "https://www.youtube.com/watch?v=deCTnv4Gx9U"
-        }
-    ]
+  "releases": [
+    {
+      "title": "Cosmic Future Garage ",
+      "cover": "/img/mix2.jpg",
+      "type": "VIDEO",
+      "date": "Mar 29, 2025",
+      "artist": "Mix Vol 2",
+      "soundcloud": "",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/watch?v=A70F6Z2FZ9k",
+      "pinned": true
+    },
+    {
+      "title": "Distant Connections",
+      "cover": "/img/distConn.jpg",
+      "type": "EP",
+      "date": "Mar 15, 2026",
+      "artist": "Cryo Drift",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/distant-connections",
+      "spotify": "https://open.spotify.com/album/0A2aMvePSR67dTPNrfIjWj?si=ZIZwvU7BTne8XEONwH9n9w",
+      "youtube": ""
+    },
+    {
+      "title": "Multidirectional Growth",
+      "cover": "/img/multi.png",
+      "type": "VIDEO",
+      "date": "Sept 24, 2025",
+      "artist": "Gravitas Fracture",
+      "soundcloud": "",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/watch?v=6rEKZw3gq38"
+    },
+    {
+      "title": "Sprout Of Light",
+      "cover": "/img/sprout.jpg",
+      "type": "EP",
+      "date": "Mar 12, 2025",
+      "artist": "Gravitas Fracture",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/sprout-of-light",
+      "spotify": "https://open.spotify.com/album/1mAROfVF7DWDHGi0503zSU?si=BBO9y5h-Qrqnbt7NcbJBdQ",
+      "youtube": "https://youtu.be/AT4_E1t7WWQ"
+    },
+    {
+      "title": "Rule Of Corp",
+      "cover": "/img/roc-cover.jpg",
+      "type": "VIDEO",
+      "date": "May 23, 2025",
+      "artist": "Neural Pulsar",
+      "soundcloud": "",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/watch?v=OsWHTd1rW14"
+    },
+    {
+      "title": "Interemotional",
+      "cover": "/img/interemotional.jpg",
+      "type": "EP",
+      "date": "Jul 21, 2025",
+      "artist": "Reverb Tail",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/interemotional",
+      "spotify": "https://open.spotify.com/album/2PSx2s8b7cYzPFZ3bMO0gF",
+      "youtube": ""
+    },
+    {
+      "title": "Orbitscraper",
+      "cover": "/img/orbitscraper.jpg",
+      "type": "EP",
+      "date": "Mar 12, 2025",
+      "artist": "Neural Pulsar",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/orbitscrapper",
+      "spotify": "https://open.spotify.com/album/2Isi5DBdzTSYFa9SGWmfgc?si=1pzLQHitQ9WxuuwF3nEYnQ",
+      "youtube": "https://www.youtube.com/watch?v=KgH0UxHW7zI"
+    },
+    {
+      "title": "Tuning For Laniakea",
+      "cover": "/img/tfl-cover.jpg",
+      "type": "VIDEO",
+      "date": "Mar 29, 2025",
+      "artist": "Ecliptic Cycles",
+      "soundcloud": "",
+      "spotify": "",
+      "youtube": "https://www.youtube.com/watch?v=1B8nmKCUKkM"
+    },
+    {
+      "title": "Sinusoidal",
+      "cover": "/img/sinusoidal.jpg",
+      "type": "EP",
+      "date": "Mar 11, 2025",
+      "artist": "Ecliptic Cycles",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/sinusoidal",
+      "spotify": "https://open.spotify.com/album/37Yx5w1WqBqFKC2BwHQlZA?si=4O686UPWT76efY-o3XNPBg",
+      "youtube": "https://www.youtube.com/watch?v=deCTnv4Gx9U"
+    },
+    {
+      "title": "Reality Break",
+      "cover": "/img/realitybreak.jpg",
+      "type": "EP",
+      "date": "May 1, 2025",
+      "artist": "Neural Pulsar",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/reality-break",
+      "spotify": "https://open.spotify.com/album/4t7XZcohcshu21mtMCAf1g?si=G0b1LBjoQkC3fi8nIW16CQ",
+      "youtube": "https://www.youtube.com/watch?v=IiFrfOGegfA"
+    },
+    {
+      "title": "Signs of Life",
+      "cover": "/img/signsoflife.jpg",
+      "type": "SINGLE",
+      "date": "Mar 12, 2025",
+      "artist": "Cryo Drift, Gravitas Fracture",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/signs-of-life",
+      "spotify": "https://open.spotify.com/album/0PKweyDzazgpqH9sXN2qFl?si=49FCX9abRoClrt8vYKKLlQ",
+      "youtube": ""
+    },
+    {
+      "title": "Astronautilus",
+      "cover": "/img/astronautilus.jpg",
+      "type": "EP",
+      "date": "Mar 12, 2025",
+      "artist": "Cryo Drift",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/astronautilus",
+      "spotify": "https://open.spotify.com/album/2QEXE1lbWfmGTypjtXe5eN?si=2ryHL8P1Tne-Yv7QemUtrw",
+      "youtube": "https://www.youtube.com/watch?v=KREaP-bqqLs"
+    },
+    {
+      "title": "Harmonic Resonance",
+      "cover": "/img/harmonicresonance.jpg",
+      "type": "EP",
+      "date": "Mar 12, 2025",
+      "artist": "Reverb Tail",
+      "soundcloud": "https://soundcloud.com/organic-satellite-records/sets/harmonic-resonance",
+      "spotify": "https://open.spotify.com/album/6UkSiAze4celHuyfKFDba4?si=JUBCvEETQTOwimkVgcR5_g",
+      "youtube": "https://www.youtube.com/watch?v=ipQoJbMqV1U"
+    }
+  ]
 }

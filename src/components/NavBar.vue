@@ -29,7 +29,7 @@ const trackNavigationClick = (page) => {
            @click="trackSocialClick('soundcloud')">
            <i class="fab fa-soundcloud"></i>
         </a>
-        <a href="https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw/" 
+        <a href="https://www.youtube.com/channel/UCs1eXmxxLlG6Nm6baiALDuw" 
            class="satellite-social-link" 
            target="_blank"
            @click="trackSocialClick('youtube')">
@@ -41,11 +41,11 @@ const trackNavigationClick = (page) => {
            @click="trackSocialClick('spotify')">
            <i class="fab fa-spotify"></i>
         </a>
-        <a href="https://www.tiktok.com/@organicsatelliterecords" 
+        <a href="https://www.instagram.com/organicsatellite88" 
            class="satellite-social-link" 
            target="_blank"
-           @click="trackSocialClick('tiktok')">
-           <i class="fab fa-tiktok"></i>
+           @click="trackSocialClick('instagram')">
+           <i class="fab fa-instagram"></i>
         </a>
   </div>
   <nav class="satellite-navbar">
