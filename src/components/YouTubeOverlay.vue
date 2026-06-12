@@ -32,7 +32,7 @@ const toggleDrawer = () => {
         v-if="itNowExists"
         width="100%"
         height="450"
-        src="https://www.youtube.com/embed/zR-RH_q89b4"
+        src="https://youtube.com/embed/live_stream?channel=UCs1eXmxxLlG6Nm6baiALDuw"
         title="24/7 Dark Garage radio 💻 Work and programming beats"
         frameborder="0"
         allow="
