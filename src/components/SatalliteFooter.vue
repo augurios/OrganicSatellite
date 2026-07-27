@@ -1,7 +1,7 @@
 <template>
   <footer class="satellite-footer">
     <SoundCloudOverlay />
-    <YouTubeOverlay />
+    <!-- <YouTubeOverlay /> -->
     <div class="satellite-footer__content">
       <h3><i class="fas fa-copyright"></i> 2025 Organic Satellite Records.</h3>
       <p>Website by <a href="https://valerio-web.com/" target="_blank">Valerio-web.com</a></p>
@@ -10,7 +10,7 @@
 </template>
 <script setup>
 import SoundCloudOverlay from "./SoundCloudOverlay.vue";
-import YouTubeOverlay from "./YouTubeOverlay.vue";
+// import YouTubeOverlay from "./YouTubeOverlay.vue";
 </script>
 <style lang="scss">
 .satellite-footer {

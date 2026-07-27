@@ -1,10 +1,15 @@
-@import './base.css';
+@import "./base.css";
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   width: 100%;
   position: relative;
+}
+
+body {
+  background-image: url("../img/backup-background.png");
 }
 
 #app {
@@ -50,7 +55,7 @@ a,
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  
+
   .satellite-grid-gallery figure {
     flex-basis: calc(33.333% - 10px);
     margin-bottom: 20px;
